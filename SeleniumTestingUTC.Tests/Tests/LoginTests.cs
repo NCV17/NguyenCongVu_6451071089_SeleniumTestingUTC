@@ -81,5 +81,45 @@ namespace SeleniumTestingUTC.Tests.Tests
                 Assert.That(_driver.Url, Does.Not.Contain("/Login"), "Đăng nhập không thành công, URL vẫn chứa '/Login'.");
             });
         }
+
+        [Test]
+        [AllureName("TC02 - Đăng nhập với Username sai")]
+        [AllureFeature("Login")]
+        public void TC02_InvalidUsername()
+        {
+            var username = "invalid_user_123456";
+            var password = "test123456";
+
+            AllureApi.Step("Open Login Page", () =>
+            {
+                _driver.Navigate().GoToUrl("https://vanphongdientu.utc.edu.vn/Login");
+            });
+
+            AllureApi.Step("Enter invalid Username", () =>
+            {
+                _loginPage.EnterUsername(username);
+            });
+
+            AllureApi.Step("Enter Password", () =>
+            {
+                _loginPage.EnterPassword(password);
+            });
+
+            AllureApi.Step("Click Login", () =>
+            {
+                _loginPage.ClickLogin();
+            });
+
+            AllureApi.Step("Verify Login Error", () =>
+            {
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                
+                // Do không có thông tin locator lỗi cụ thể, dấu hiệu ổn định nhất của login thất bại
+                // là URL vẫn đang ở trang Login sau khi submit form.
+                bool isUrlStillLogin = wait.Until(driver => driver.Url.Contains("/Login"));
+                
+                Assert.That(isUrlStillLogin, Is.True, "Lỗi: Đăng nhập sai nhưng URL bị thay đổi (không còn ở trang Login).");
+            });
+        }
     }
 }

@@ -231,5 +231,31 @@ namespace SeleniumTestingUTC.Tests.Tests
                 Assert.That(_loginPage.IsRememberMeSelected(), Is.False, "Checkbox Remember Me phải ở trạng thái Unchecked.");
             });
         }
+
+        [Test]
+        [AllureName("TC06 - Đăng nhập bằng e-mail UTC")]
+        [AllureFeature("Login")]
+        public void TC06_EmailLogin()
+        {
+            AllureApi.Step("Open Login Page", () =>
+            {
+                _driver.Navigate().GoToUrl("https://vanphongdientu.utc.edu.vn/Login");
+            });
+
+            AllureApi.Step("Find Email UTC Login Link & Click", () =>
+            {
+                _loginPage.ClickLoginWithEmailUtc();
+            });
+
+            AllureApi.Step("Verify Navigation", () =>
+            {
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(10));
+                
+                // Assuming it redirects to Google or Microsoft login page.
+                bool isRedirected = wait.Until(driver => !driver.Url.Contains("vanphongdientu.utc.edu.vn/Login") || driver.Url.Contains("google") || driver.Url.Contains("microsoft"));
+                
+                Assert.That(isRedirected, Is.True, "Lỗi: Không chuyển hướng đúng khi bấm Đăng nhập bằng e-mail UTC.");
+            });
+        }
     }
 }

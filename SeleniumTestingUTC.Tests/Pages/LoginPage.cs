@@ -43,5 +43,10 @@ namespace SeleniumTestingUTC.Tests.Pages
         {
             _driver.FindElement(RememberMeCheckbox).Click();
         }
+
+        public void ClickLoginWithEmailUtc()
+        {
+            _driver.FindElement(LoginWithEmailUtcButton).Click();
+        }
     }
 }

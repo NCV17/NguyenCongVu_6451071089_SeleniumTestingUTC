@@ -160,5 +160,42 @@ namespace SeleniumTestingUTC.Tests.Tests
                 Assert.That(isUrlStillLogin, Is.True, "Lỗi: Đăng nhập sai password nhưng URL bị thay đổi (không còn ở trang Login).");
             });
         }
+
+        [Test]
+        [AllureName("TC04 - Bỏ trống Username và Password")]
+        [AllureFeature("Login")]
+        public void TC04_EmptyCredentials()
+        {
+            AllureApi.Step("Open Login Page", () =>
+            {
+                _driver.Navigate().GoToUrl("https://vanphongdientu.utc.edu.vn/Login");
+            });
+
+            AllureApi.Step("Leave Username Empty", () =>
+            {
+                _loginPage.EnterUsername("");
+            });
+
+            AllureApi.Step("Leave Password Empty", () =>
+            {
+                _loginPage.EnterPassword("");
+            });
+
+            AllureApi.Step("Click Login", () =>
+            {
+                _loginPage.ClickLogin();
+            });
+
+            AllureApi.Step("Verify Validation", () =>
+            {
+                var wait = new WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                
+                // Form bị chặn submit (bởi HTML5 required) hoặc server trả về lỗi.
+                // Dấu hiệu ổn định nhất là URL không đổi.
+                bool isUrlStillLogin = wait.Until(driver => driver.Url.Contains("/Login"));
+                
+                Assert.That(isUrlStillLogin, Is.True, "Lỗi: Bỏ trống credentials nhưng URL bị thay đổi (đăng nhập lọt).");
+            });
+        }
     }
 }

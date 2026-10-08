@@ -197,5 +197,39 @@ namespace SeleniumTestingUTC.Tests.Tests
                 Assert.That(isUrlStillLogin, Is.True, "Lỗi: Bỏ trống credentials nhưng URL bị thay đổi (đăng nhập lọt).");
             });
         }
+
+        [Test]
+        [AllureName("TC05 - Kiểm tra chức năng Remember Me")]
+        [AllureFeature("Login")]
+        public void TC05_RememberMe()
+        {
+            AllureApi.Step("Open Login Page", () =>
+            {
+                _driver.Navigate().GoToUrl("https://vanphongdientu.utc.edu.vn/Login");
+            });
+
+            AllureApi.Step("Find Remember Me & Check", () =>
+            {
+                if (!_loginPage.IsRememberMeSelected())
+                {
+                    _loginPage.ToggleRememberMe();
+                }
+            });
+
+            AllureApi.Step("Verify Checked", () =>
+            {
+                Assert.That(_loginPage.IsRememberMeSelected(), Is.True, "Checkbox Remember Me phải ở trạng thái Checked.");
+            });
+
+            AllureApi.Step("Uncheck Remember Me", () =>
+            {
+                _loginPage.ToggleRememberMe();
+            });
+
+            AllureApi.Step("Verify Unchecked", () =>
+            {
+                Assert.That(_loginPage.IsRememberMeSelected(), Is.False, "Checkbox Remember Me phải ở trạng thái Unchecked.");
+            });
+        }
     }
 }

@@ -33,5 +33,15 @@ namespace SeleniumTestingUTC.Tests.Pages
         {
             _driver.FindElement(LoginButton).Click();
         }
+
+        public bool IsRememberMeSelected()
+        {
+            return _driver.FindElement(RememberMeCheckbox).Selected;
+        }
+
+        public void ToggleRememberMe()
+        {
+            _driver.FindElement(RememberMeCheckbox).Click();
+        }
     }
 }

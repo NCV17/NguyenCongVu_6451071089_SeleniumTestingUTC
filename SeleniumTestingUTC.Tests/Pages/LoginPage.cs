@@ -48,5 +48,10 @@ namespace SeleniumTestingUTC.Tests.Pages
         {
             _driver.FindElement(LoginWithEmailUtcButton).Click();
         }
+
+        public void ClickForgotPassword()
+        {
+            _driver.FindElement(By.XPath("//a[contains(@href, '/Login/GetPass')]")).Click();
+        }
     }
 }

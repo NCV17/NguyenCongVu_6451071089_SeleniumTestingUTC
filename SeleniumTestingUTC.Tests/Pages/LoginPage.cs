@@ -41,7 +41,8 @@ namespace SeleniumTestingUTC.Tests.Pages
 
         public void ToggleRememberMe()
         {
-            _driver.FindElement(RememberMeCheckbox).Click();
+            var checkbox = _driver.FindElement(RememberMeCheckbox);
+            ((IJavaScriptExecutor)_driver).ExecuteScript("arguments[0].click();", checkbox);
         }
 
         public void ClickLoginWithEmailUtc()

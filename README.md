@@ -32,25 +32,24 @@ dotnet test
 ```
 
 ## 7. Cách tạo Allure Report
-Allure sẽ sinh kết quả vào thư mục `allure-results`. Để xem báo cáo, chạy lệnh (cần cài đặt Java và Allure CLI):
+Allure sẽ sinh kết quả vào thư mục `allure-results` tại thư mục gốc của project. Để xem báo cáo, chạy lệnh (cần cài đặt Java và Allure CLI):
 ```bash
-allure serve SeleniumTestingUTC.Tests/bin/Debug/net9.0/allure-results
+allure serve allure-results
 ```
-Hoặc cấu hình trỏ tới thư mục kết quả.
 
 ## 8. Git workflow
 Mỗi test case tương ứng với đúng 1 commit.
 
-## 9. Danh sách 12 test case dự kiến
+## 9. Danh sách 12 test case
 - TC01 - Đăng nhập thành công
 - TC02 - Sai Username
 - TC03 - Sai Password
 - TC04 - Bỏ trống Username và Password
-- TC05 - Nhập CAPTCHA đúng
-- TC06 - Nhập CAPTCHA sai
-- TC07 - Lấy lại/Đổi mật khẩu
-- TC08 - Kiểm tra Response Time
-- TC09 - Load Testing
-- TC10 - Stress Testing
+- TC05 - Remember Me
+- TC06 - Đăng nhập bằng e-mail UTC
+- TC07 - Lấy lại mật khẩu
+- TC08 - Response Time (Performance - JMeter)
+- TC09 - Load Testing (Performance - JMeter)
+- TC10 - Stress Testing (Performance - JMeter)
 - TC11 - SQL Injection - Username
 - TC12 - SQL Injection - Username + Password

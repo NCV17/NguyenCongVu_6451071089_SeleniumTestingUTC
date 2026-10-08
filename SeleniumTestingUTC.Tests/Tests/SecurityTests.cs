@@ -67,5 +67,38 @@ namespace SeleniumTestingUTC.Tests.Tests
                 Assert.That(isAuthenticationDenied, Is.True, "Lỗi: Bypass đăng nhập bằng SQL Injection Username thành công!");
             });
         }
+
+        [Test]
+        [AllureName("TC12 - SQL Injection - Username + Password")]
+        [AllureFeature("Security")]
+        public void TC12_SqlInjection_UsernamePassword()
+        {
+            AllureApi.Step("Open Login Page", () =>
+            {
+                _driver.Navigate().GoToUrl("https://vanphongdientu.utc.edu.vn/Login");
+            });
+
+            AllureApi.Step("Enter SQL Injection Username", () =>
+            {
+                _loginPage.EnterUsername("' OR '1'='1");
+            });
+
+            AllureApi.Step("Enter SQL Injection Password", () =>
+            {
+                _loginPage.EnterPassword("' OR '1'='1");
+            });
+
+            AllureApi.Step("Click Login", () =>
+            {
+                _loginPage.ClickLogin();
+            });
+
+            AllureApi.Step("Verify Authentication Not Bypassed", () =>
+            {
+                var wait = new OpenQA.Selenium.Support.UI.WebDriverWait(_driver, TimeSpan.FromSeconds(5));
+                bool isAuthenticationDenied = wait.Until(driver => driver.Url.Contains("/Login"));
+                Assert.That(isAuthenticationDenied, Is.True, "Lỗi: Bypass đăng nhập bằng SQL Injection Username + Password thành công!");
+            });
+        }
     }
 }

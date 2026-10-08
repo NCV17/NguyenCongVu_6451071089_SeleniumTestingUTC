@@ -18,7 +18,7 @@ namespace SeleniumTestingUTC.Tests.Tests
         [SetUp]
         public void Setup()
         {
-            _driver = Utilities.WebDriverFactory.CreateDriver();
+            _driver = Utilities.WebDriverFactory.CreateChromeDriver();
             _driver.Manage().Window.Maximize();
             _driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
             _loginPage = new Pages.LoginPage(_driver);

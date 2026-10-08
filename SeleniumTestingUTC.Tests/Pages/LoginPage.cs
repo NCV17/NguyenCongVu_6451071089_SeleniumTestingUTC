@@ -18,6 +18,20 @@ namespace SeleniumTestingUTC.Tests.Pages
         private readonly By LoginButton = By.CssSelector("input.submit_login");
         private readonly By LoginWithEmailUtcButton = By.XPath("//a[contains(text(),'e-mail UTC')]");
 
-        // Action methods to be implemented
+        // Action methods
+        public void EnterUsername(string username)
+        {
+            _driver.FindElement(UsernameInput).SendKeys(username);
+        }
+
+        public void EnterPassword(string password)
+        {
+            _driver.FindElement(PasswordInput).SendKeys(password);
+        }
+
+        public void ClickLogin()
+        {
+            _driver.FindElement(LoginButton).Click();
+        }
     }
 }
